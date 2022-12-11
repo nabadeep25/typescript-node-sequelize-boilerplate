@@ -1,6 +1,6 @@
 import { get } from "lodash";
 import { Response, NextFunction } from "express";
-import { customRequest } from "./requiresUser";
+import { customRequest } from "../types/customDefinition";
 
 const isAdmin = async (
   req: customRequest,

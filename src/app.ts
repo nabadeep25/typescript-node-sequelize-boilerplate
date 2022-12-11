@@ -2,10 +2,9 @@ import express from "express";
 import logger from "morgan";
 import dbInit from "./model/init";
 import cors from "cors";
-import { customRequest } from "./middleware/requiresUser";
+import { customRequest } from "./types/customDefinition";
 import { deserializeUser } from "./middleware";
-import userRouter from "./routes/userRoutes";
-import authRouter from "./routes/authRoute";
+import appRouter from "./routes/v1";
 
 // Create Express server
 const app = express();
@@ -23,8 +22,7 @@ app.use(deserializeUser);
  * Primary app routes.
  */
 
-app.use("/api/auth", authRouter);
-app.use("/api/user", userRouter);
+app.use("/api/v1", appRouter);
 
 /**
  * route to test server
@@ -39,7 +37,7 @@ app.get("/api/", (req: customRequest, res) => {
  */
 app.patch("/api/sync", async (req, res) => {
   try {
-    const sync = await dbInit(req.body?.alter);
+    const sync = await dbInit();
     res.status(200).json({ ...sync, error: false });
   } catch (err) {
     console.log("ERR", err);

@@ -1,12 +1,12 @@
 import { findOneUser, updateUserById } from "../services/userService";
-import { Request, Response } from "express";
+import { Response } from "express";
 import { omit } from "lodash";
-import { customRequest } from "../middleware/requiresUser";
+import { customRequest } from "../types/customDefinition";
 
 const omitData = ["password"];
-export const updateUser = async (req: Request, res: Response) => {
+export const updateUser = async (req: customRequest, res: Response) => {
   try {
-    const { userId } = req.params;
+    const { id: userId } = req.user;
 
     let body = req.body;
     body = omit(body, omitData);
@@ -39,7 +39,6 @@ export const getUserData = async (req: customRequest, res: Response) => {
   try {
     return res.status(200).json({
       data: req.user,
-
       error: false,
     });
   } catch (err) {
@@ -52,3 +51,4 @@ export const getUserData = async (req: customRequest, res: Response) => {
     return res.status(400).json({ errorMsg: msg, error: true });
   }
 };
+
