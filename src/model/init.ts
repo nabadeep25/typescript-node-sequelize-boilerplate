@@ -12,11 +12,11 @@ export const modelList = {
 
 /**
  * Sync database
- * @param alter
+
  * @returns  boolean
  */
 
-const dbInit = async (alter: boolean) => {
+const dbInit = async () => {
   try {
     await sequelizeConnection.sync({ alter: isDev });
     return { success: true };

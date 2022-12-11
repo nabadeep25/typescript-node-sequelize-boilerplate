@@ -100,3 +100,17 @@ export const updateUserById = (user: any, userId: number) => {
     });
   }
 };
+
+export const deleteUserById = (userId: number) => {
+  if (!userId) {
+    throw new Error("Please user id to delete");
+  }
+  if (userId && isNaN(userId)) {
+    throw new Error("Invalid user id");
+  }
+
+  return User.destroy({
+    where: { id: userId },
+  });
+};
+

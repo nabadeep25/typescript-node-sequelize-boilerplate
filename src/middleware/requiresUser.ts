@@ -1,10 +1,7 @@
 import { get } from "lodash";
 import { getUserById } from "../services/userService";
-import { Request, Response, NextFunction } from "express";
-
-export interface customRequest extends Request {
-  user: any;
-}
+import { Response, NextFunction } from "express";
+import { customRequest } from "../types/customDefinition";
 
 const requireUser = async (
   req: customRequest,

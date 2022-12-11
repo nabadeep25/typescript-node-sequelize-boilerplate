@@ -1,7 +1,7 @@
 import { get } from "lodash";
 import { verify } from "../util/jwt";
-import { Request, Response, NextFunction } from "express";
-import { customRequest } from "./requiresUser";
+import { Response, NextFunction } from "express";
+import { customRequest } from "../types/customDefinition";
 
 const deserializeUser = async (
   req: customRequest,
