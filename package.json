@@ -1,8 +1,9 @@
 {
-  "name": "typescript-node-sequelize-boilerplate",
-  "version": "0.1.0",
+  "name": "@nabadeep25/create-ts-node-app",
+  "version": "0.1.3",
   "description": "",
   "author": "Nabadeep Thakuria",
+  "bin": "bin/cli.js",
   "homepage": "https://github.com/nabadeep25/typescript-node-sequelize-boilerplate",
   "license": "MIT",
   "keywords": ["typescript","node","express","sequelize","mysql","postgres","boilerplate","template","typescript node sequelize boilerplate","typescript node","typescript sequelize boilerplate"],
