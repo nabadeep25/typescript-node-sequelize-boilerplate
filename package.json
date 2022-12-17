@@ -1,6 +1,6 @@
 {
   "name": "@nabadeep25/create-ts-node-app",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "",
   "author": "Nabadeep Thakuria",
   "bin": "bin/cli.js",

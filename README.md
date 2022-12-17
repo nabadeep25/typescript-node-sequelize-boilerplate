@@ -6,7 +6,7 @@ A boilerplate/starter project for quickly building RESTful APIs using Node.js,Ty
 - Node 
 - Typescript
 - Express
-- MySql
+- Sequelize (Oracle, Postgres, MySQL, MariaDB, SQLite and SQL Server etc.)
 
 ## Table of Contents
 
@@ -21,7 +21,6 @@ A boilerplate/starter project for quickly building RESTful APIs using Node.js,Ty
   - [Project Structure](#project-structure)
   - [API Documentation](#api-documentation)
     - [API Endpoints](#api-endpoints)
-  - [Linting](#linting)
   - [Inspirations](#inspirations)
 
 
@@ -29,6 +28,7 @@ A boilerplate/starter project for quickly building RESTful APIs using Node.js,Ty
 ## Quick start
 
 create boillerplate with single command
+
 ```
  npx  @nabadeep25/create-ts-node-app myapp
 
@@ -133,6 +133,7 @@ npm run format
 ## Project Structure
 
 ```
+dist\               # js files
 src\
  |--config\         # Environment variables and configuration related things
  |--controllers\    # Route controllers 
@@ -167,17 +168,6 @@ List of available routes:
 `PATCH api/v1/user` - update user\
 
 
-## Linting
-
-Linting is done using [ESLint](https://eslint.org/) and [Prettier](https://prettier.io).
-
-In this app, ESLint is configured to follow the [Airbnb JavaScript style guide](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base) with some modifications. It also extends [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) to turn off all rules that are unnecessary or might conflict with Prettier.
-
-To modify the ESLint configuration, update the `.eslintrc.json` file. To modify the Prettier configuration, update the `.prettierrc.json` file.
-
-To prevent a certain file or directory from being linted, add it to `.eslintignore` and `.prettierignore`.
-
-To maintain a consistent coding style across different IDEs, the project contains `.editorconfig`
 
 
 
