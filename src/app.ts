@@ -5,6 +5,7 @@ import cors from "cors";
 import { customRequest } from "./types/customDefinition";
 import { deserializeUser } from "./middleware";
 import appRouter from "./routes/v1";
+import { errorHandler } from "./middleware/error";
 
 // Create Express server
 const app = express();
@@ -50,5 +51,6 @@ app.patch("/api/sync", async (req, res) => {
     return res.status(400).json({ errorMsg: msg, error: true });
   }
 });
-
+// middleware to handle error
+app.use(errorHandler);
 export default app;
