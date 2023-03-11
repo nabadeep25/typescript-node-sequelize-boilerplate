@@ -144,8 +144,8 @@ src\
  |--services\       # Service 
  |--utils\          # Utility classes and functions
  |--validations\    # Request data validation schemas
- |--app.ts          # Express app
- |--server.ts       # App entry point
+ |--app.ts\         # Express app
+ |--server.ts\      # App entry point
 ```
 
 ## API Documentation
@@ -156,16 +156,16 @@ To view the list of available APIs and their specifications, run the server and 
 
 List of available routes:
 
-**Auth routes**:\
-`POST api/v1/auth/register` - register\
-`POST api/v1/auth/login` - login\
-`POST api/v1/auth/forgot-password` - send reset password email\
-`POST api/v1/auth/reset-password` - reset password\
+**Auth routes**:
+`POST api/v1/auth/register` - register
+`POST api/v1/auth/login` - login
+`POST api/v1/auth/forgot-password` - send reset password email
+`POST api/v1/auth/reset-password` - reset password
 
 
-**User routes**:\
-`GET api/v1/user` - get user info\
-`PATCH api/v1/user` - update user\
+**User routes**:
+`GET api/v1/user` - get user info
+`PATCH api/v1/user` - update user
 
 
 

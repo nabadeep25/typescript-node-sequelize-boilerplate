@@ -5,14 +5,15 @@ import {
   userExists,
   validatePassword,
 } from "../services/userService";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { omit } from "lodash";
 import { sign } from "../util/jwt";
 import { generateOTP, verifyOTP } from "../util/otp";
 import { sendOTP } from "../helpers/mailHelper";
+import { ApiError } from "../util/ApiError";
 const omitData = ["password"];
 
-export const registerUser = async (req: Request, res: Response) => {
+export const registerUser = async (req: Request, res: Response,next:NextFunction) => {
   try {
     let user = req.body;
     const userExist = await userExists({
@@ -20,7 +21,7 @@ export const registerUser = async (req: Request, res: Response) => {
       mobile: user.mobile,
     });
     if (userExist) {
-      throw new Error("Email or Mobile is alredy used");
+      throw new ApiError(400,"Email or Mobile is alredy used");
     }
     user = await createUser(user);
     const userData = omit(user?.toJSON(), omitData);
@@ -33,28 +34,22 @@ export const registerUser = async (req: Request, res: Response) => {
       msg: "User registered successfully",
     });
   } catch (err) {
-    let msg = "Internal Server Error";
-    if (err instanceof Error) {
-      msg = err.message;
-    } else if (err) {
-      msg = err;
-    }
-    return res.status(400).json({ errorMsg: msg, error: true });
+    next(err);
   }
 };
 
-export const loginUser = async (req: Request, res: Response) => {
+export const loginUser = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const { email, password } = req.body;
 
     const user = await findOneUser({ email });
     if (!user) {
-      throw new Error("Email id is incorrect");
+      throw new ApiError(400,"Email id is incorrect");
     }
 
     const validPassword = await validatePassword(user.email, password);
     if (!validPassword) {
-      throw new Error("Password is incorrect");
+      throw new ApiError(400,"Password is incorrect");
     }
     const userData = omit(user?.toJSON(), omitData);
     const accessToken = sign({ ...userData });
@@ -65,24 +60,17 @@ export const loginUser = async (req: Request, res: Response) => {
       error: false,
     });
   } catch (err) {
-    console.error(err);
-    let msg = "Internal Server Error";
-    if (err instanceof Error) {
-      msg = err.message;
-    } else if (err) {
-      msg = err;
-    }
-    return res.status(400).json({ errorMsg: msg, error: true });
+    next(err);
   }
 };
 
-export const forgotPassword = async (req: Request, res: Response) => {
+export const forgotPassword = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const { email } = req.body;
 
     let user = await findOneUser({ email });
     if (!user) {
-      throw new Error("Email id is incorrect");
+      throw new ApiError(400,"Email id is incorrect");
     }
     user = user?.toJSON();
     // generate otp
@@ -91,7 +79,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
     const send = await sendOTP(user.email, otp);
     // send otp to email
     if (!send) {
-      throw new Error("Failed to send OTP");
+      throw new ApiError(400,"Failed to send OTP");
     }
 
     return res.status(200).json({
@@ -99,24 +87,17 @@ export const forgotPassword = async (req: Request, res: Response) => {
       error: false,
     });
   } catch (err) {
-    console.error(err);
-    let msg = "Internal Server Error";
-    if (err instanceof Error) {
-      msg = err.message;
-    } else if (err) {
-      msg = err;
-    }
-    return res.status(400).json({ errorMsg: msg, error: true });
+    next(err);
   }
 };
 
-export const resetPassword = async (req: Request, res: Response) => {
+export const resetPassword = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const { email, otp, password } = req.body;
 
     let user = await findOneUser({ email });
     if (!user) {
-      throw new Error("Email id is incorrect");
+      throw new ApiError(400,"Email id is incorrect");
     }
     user = user?.toJSON();
     const isValid = verifyOTP(user.email, otp);
@@ -136,13 +117,6 @@ export const resetPassword = async (req: Request, res: Response) => {
       error: false,
     });
   } catch (err) {
-    console.error(err);
-    let msg = "Internal Server Error";
-    if (err instanceof Error) {
-      msg = err.message;
-    } else if (err) {
-      msg = err;
-    }
-    return res.status(400).json({ errorMsg: msg, error: true });
+   next(err);
   }
 };
