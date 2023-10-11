@@ -1,7 +1,6 @@
 import { encryptSync } from "../util/encrypt";
-import User from "../model/models/User";
+import User from "../models/User";
 import { Op } from "sequelize";
-import { size } from "lodash";
 
 export const createUser = async (payload: any) => {
   payload.password = encryptSync(payload.password);
@@ -113,4 +112,3 @@ export const deleteUserById = (userId: number) => {
     where: { id: userId },
   });
 };
-

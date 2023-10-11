@@ -4,7 +4,11 @@ import { omit } from "lodash";
 import { customRequest } from "../types/customDefinition";
 import { ApiError } from "../util/ApiError";
 const omitData = ["password"];
-export const updateUser = async (req: customRequest, res: Response,next:NextFunction) => {
+export const updateUser = async (
+  req: customRequest,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { id: userId } = req.user;
 
@@ -14,7 +18,7 @@ export const updateUser = async (req: customRequest, res: Response,next:NextFunc
     const user = await findOneUser({ id: userId });
 
     if (!user) {
-      throw new ApiError(400,"User not found");
+      throw new ApiError(400, "User not found");
     }
 
     const updated = await updateUserById(body, parseInt(userId, 10));
@@ -29,7 +33,11 @@ export const updateUser = async (req: customRequest, res: Response,next:NextFunc
   }
 };
 
-export const getUserData = async (req: customRequest, res: Response,next:NextFunction) => {
+export const getUserData = async (
+  req: customRequest,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     return res.status(200).json({
       data: req.user,
@@ -39,4 +47,3 @@ export const getUserData = async (req: customRequest, res: Response,next:NextFun
     next(err);
   }
 };
-
