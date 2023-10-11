@@ -1,6 +1,6 @@
 import express from "express";
 import logger from "morgan";
-import dbInit from "./model/init";
+import dbInit from "./db/init";
 import cors from "cors";
 import { customRequest } from "./types/customDefinition";
 import { deserializeUser } from "./middleware";
@@ -51,6 +51,36 @@ app.patch("/api/sync", async (req, res) => {
     return res.status(400).json({ errorMsg: msg, error: true });
   }
 });
+
+/**
+ * @swagger
+ * tags:
+ *   name: Global
+ *
+ */
+
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Get server status
+ *     description: Logged in users can fetch only their own user information.
+ *     tags: [Global]
+ *     responses:
+ *       "200":
+ *         description: OK
+ *
+ * /sync:
+ *   patch:
+ *     summary: Sync database
+ *     description: To sync database first time and after change in model.
+ *     tags: [Global]
+ *     responses:
+ *       "200":
+ *         description: OK
+ *
+ */
+
 // middleware to handle error
 app.use(errorHandler);
 export default app;

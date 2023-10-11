@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
-import { compareSync } from "../../util/encrypt";
-import sequelizeConnection from "../connection";
+import { compareSync } from "../util/encrypt";
+import sequelizeConnection from "../db/connection";
 
 class User extends Model {
   public id!: number;
@@ -21,16 +21,13 @@ class User extends Model {
 User.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    username: {
-      type: DataTypes.STRING,
     },
     email: {
       type: DataTypes.STRING,
@@ -40,31 +37,12 @@ User.init(
     password: {
       type: DataTypes.STRING,
     },
-
-    mobile: {
-      type: DataTypes.STRING,
-    },
-    country_code: {
-      type: DataTypes.STRING,
-    },
-    date_of_birth: {
-      type: DataTypes.DATE,
-    },
-    country: {
-      type: DataTypes.STRING,
-    },
-    province: {
-      type: DataTypes.STRING,
-    },
-    location: {
-      type: DataTypes.STRING,
-    },
     status: {
-      type: DataTypes.TINYINT,
+      type: DataTypes.INTEGER,
       defaultValue: 1,
     },
     role: {
-      type: DataTypes.TINYINT,
+      type: DataTypes.INTEGER,
       defaultValue: 2,
     },
   },

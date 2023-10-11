@@ -25,7 +25,7 @@ export default authRouter;
 
 /**
  * @swagger
- * /auth/register:
+ * /v1/auth/register:
  *   post:
  *     summary: Register as user
  *     tags: [Auth]
@@ -66,7 +66,7 @@ export default authRouter;
 
 /**
  * @swagger
- * /auth/login:
+ * /v1/auth/login:
  *   post:
  *     summary: Login
  *     tags: [Auth]
@@ -100,7 +100,7 @@ export default authRouter;
 
 /**
  * @swagger
- * /auth/forgot-password:
+ * /v1/auth/forgot-password:
  *   post:
  *     summary: Forgot password
  *     description: An email will be sent to reset password.
@@ -129,7 +129,7 @@ export default authRouter;
 
 /**
  * @swagger
- * /auth/reset-password:
+ * /v1/auth/reset-password:
  *   post:
  *     summary: Reset password
  *     tags: [Auth]

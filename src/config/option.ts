@@ -7,7 +7,7 @@ const swaggerOption = {
     },
     servers: [
       {
-        url: `http://localhost:${process.env.PORT || 3000}/api/v1`,
+        url: `http://localhost:${process.env.PORT || 3000}/api`,
       },
     ],
     components: {
@@ -21,6 +21,6 @@ const swaggerOption = {
     },
   },
 
-  apis: ["src/routes/v1/*.ts"],
+  apis: ["src/routes/v1/*.ts", "src/app.ts"],
 };
 export { swaggerOption };
