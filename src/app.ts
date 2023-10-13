@@ -1,6 +1,6 @@
 import express from "express";
 import logger from "morgan";
-import dbInit from "./db/init";
+import {dbSync} from "./db/connection";
 import cors from "cors";
 import { customRequest } from "./types/customDefinition";
 import { deserializeUser } from "./middleware";
@@ -38,7 +38,7 @@ app.get("/api/", (req: customRequest, res) => {
  */
 app.patch("/api/sync", async (req, res) => {
   try {
-    const sync = await dbInit();
+    const sync = await dbSync();
     res.status(200).json({ ...sync, error: false });
   } catch (err) {
     console.log("ERR", err);
