@@ -1,6 +1,6 @@
 {
   "name": "@nabadeep25/create-ts-node-app",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A boilerplate/starter project for quickly building RESTful APIs using Node.js,Typescript, Express, and Sequelize.",
   "author": "Nabadeep Thakuria",
   "bin": "bin/cli.js",
