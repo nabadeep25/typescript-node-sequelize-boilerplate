@@ -8,6 +8,9 @@ A boilerplate/starter project for quickly building RESTful APIs using Node.js,Ty
 - Express
 - Sequelize (Oracle, Postgres, MySQL, MariaDB, SQLite and SQL Server etc.)
 
+## Link to NPM
+ [@nabadeep25/create-ts-node-app](https://www.npmjs.com/package/@nabadeep25/create-ts-node-app)
+
 ## Table of Contents
 
 - [Typescript-Node-Sequelize-Boilerplate](#typescript-node-sequelize-boilerplate)
