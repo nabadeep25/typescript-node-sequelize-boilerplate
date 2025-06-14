@@ -19,6 +19,9 @@ A boilerplate/starter project for quickly building RESTful APIs using Node.js,Ty
   - [Manual Installation](#manual-installation)
   - [Getting started](#getting-started)
   - [For development](#for-development)
+  - [Docker Setup](#docker-setup)
+    - [Using Docker Compose (Recommended)](#using-docker-compose-recommended)
+    - [Using Docker Only](#using-docker-only)
   - [Sample .ENV](#sample-env)
   - [Commands](#commands)
   - [Project Structure](#project-structure)
@@ -84,6 +87,113 @@ npm run dev
 
 ```
 
+## Docker Setup
+
+### Using Docker Compose (Recommended)
+
+The easiest way to run the application with Docker is using Docker Compose, which will set up both the Node.js application and PostgreSQL database.
+
+1. **Create a `.env` file** in the project root:
+
+```bash
+# Database Configuration
+DB_HOST=postgres
+DB_PORT=5432
+DB_TYPE=postgres
+DB_NAME=myapp
+DB_USER=postgres
+DB_PASSWORD=password
+
+# JWT Configuration
+SECRET=your-secret-key-change-this-in-production
+TOKEN_EXPIRY_HOUR=24
+
+# Email Configuration
+EMAIL_SERVICE=gmail
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-email-password
+EMAIL_FROM=your-email@gmail.com
+
+# OTP Configuration
+OTP_EXPIRY_MIN=5
+OTP_SECRET=your-otp-secret-change-this-in-production
+```
+
+2. **Build and run the containers**:
+
+```bash
+# Build and start all services
+docker compose up --build
+
+# Run in detached mode (background)
+docker compose up -d --build
+
+# Stop the services
+docker compose down
+
+```
+
+3. **Access the application**:
+   - **API**: http://localhost:5000/api/
+   - **Swagger Documentation**: http://localhost:5000/api/v1/docs/
+   - **Database**: PostgreSQL on localhost:5432
+
+### Using Docker Only
+
+If you prefer to run only the application container and connect to an external database:
+
+1. **Build the Docker image**:
+
+```bash
+docker build -t typescript-node-app .
+```
+
+2. **Run the container**:
+
+```bash
+docker run -p 5000:5000 \
+  -e DB_HOST=your-db-host \
+  -e DB_PORT=5432 \
+  -e DB_TYPE=postgres \
+  -e DB_NAME=your-db-name \
+  -e DB_USER=your-db-user \
+  -e DB_PASSWORD=your-db-password \
+  -e SECRET=your-secret-key \
+  -e TOKEN_EXPIRY_HOUR=24 \
+  -e EMAIL_SERVICE=gmail \
+  -e EMAIL_USER=your-email@gmail.com \
+  -e EMAIL_PASS=your-email-password \
+  -e EMAIL_FROM=your-email@gmail.com \
+  -e OTP_EXPIRY_MIN=5 \
+  -e OTP_SECRET=your-otp-secret \
+  typescript-node-app
+```
+
+
+### Docker Commands
+
+```bash
+# Build the image
+docker build -t typescript-node-app .
+
+# Run container
+docker run -p 5000:5000 typescript-node-app
+
+# Run with environment file
+docker run -p 5000:5000 --env-file .env typescript-node-app
+
+# View running containers
+docker ps
+
+# View logs
+docker logs <container-id>
+
+# Stop container
+docker stop <container-id>
+
+```
+
+
 ## Sample .ENV
 ```sh
 DB_HOST=localhost
@@ -128,6 +238,9 @@ npm run lint
 #  format files
 npm run format
 
+# Docker commands
+docker compose up --build
+docker compose down
 ```
 
 
@@ -149,6 +262,9 @@ src\
  |--validations\    # Request data validation schemas
  |--app.ts\         # Express app
  |--server.ts\      # App entry point
+docker-compose.yml  # Docker Compose configuration
+Dockerfile          # Docker image definition
+.env                # Environment variables
 ```
 ## Changing Database
 
