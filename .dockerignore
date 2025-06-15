@@ -1,0 +1,12 @@
+node_modules
+dist
+.gitignore
+.env
+Dockerfile
+REAME.md
+.github
+bin
+coverage
+*.log
+.DS_Store
+docker-compose.yml

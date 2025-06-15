@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      # Database Configuration
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_TYPE=${DB_TYPE}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      # JWT Configuration
+      - SECRET=${SECRET}
+      - TOKEN_EXPIRY_HOUR=${TOKEN_EXPIRY_HOUR}
+      # Email Configuration
+      - EMAIL_SERVICE=${EMAIL_SERVICE}
+      - EMAIL_USER=${EMAIL_USER}
+      - EMAIL_PASS=${EMAIL_PASS}
+      - EMAIL_FROM=${EMAIL_FROM}
+      # OTP Configuration
+      - OTP_EXPIRY_MIN=${OTP_EXPIRY_MIN}
+      - OTP_SECRET=${OTP_SECRET}
+      # Port Configuration
+      - PORT=5000
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16.0-alpine3.17
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
